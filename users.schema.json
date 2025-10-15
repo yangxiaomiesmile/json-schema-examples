@@ -1,0 +1,159 @@
+{
+    "$id": "/",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "UserInfo",
+    "description": "用户信息数据结构定义",
+    "type": "object",
+    "$defs": {
+        "address": {
+            "type": "object",
+            "title": "address",
+            "properties": {
+                "province": {
+                    "type": "string",
+                    "title": "province",
+                    "description": "省份/直辖市"
+                },
+                "city": {
+                    "type": "string",
+                    "title": "city",
+                    "description": "城市"
+                },
+                "district": {
+                    "type": "string",
+                    "title": "district",
+                    "description": "区县"
+                },
+                "detail": {
+                    "type": "string",
+                    "title": "detail",
+                    "description": "详细地址"
+                },
+                "postalCode": {
+                    "type": "string",
+                    "title": "postalCode",
+                    "pattern": "^[0-9]{6}$",
+                    "description": "邮政编码"
+                }
+            },
+            "required": [
+                "province",
+                "city",
+                "detail"
+            ],
+            "description": "地址信息"
+        },
+        "contact": {
+            "type": "object",
+            "title": "contact",
+            "properties": {
+                "mobile": {
+                    "type": "string",
+                    "title": "mobile",
+                    "pattern": "^1[3-9]\\d{9}$",
+                    "description": "中国大陆手机号"
+                },
+                "email": {
+                    "type": "string",
+                    "title": "email",
+                    "format": "email",
+                    "description": "电子邮箱"
+                }
+            },
+            "description": "联系方式"
+        }
+    },
+    "properties": {
+        "name": {
+            "type": "string",
+            "title": "name",
+            "minLength": 2,
+            "maxLength": 50,
+            "description": "用户姓名"
+        },
+        "age": {
+            "type": "integer",
+            "title": "age",
+            "minimum": 0,
+            "maximum": 150,
+            "description": "用户年龄"
+        },
+        "gender": {
+            "type": "string",
+            "title": "gender",
+            "enum": [
+                "male",
+                "female",
+                "other"
+            ],
+            "description": "性别：male(男)/female(女)/other(其他)"
+        },
+        "address": {
+            "$ref": "#/$defs/address",
+            "title": "address",
+            "description": "居住地址"
+        },
+        "contacts": {
+            "type": "array",
+            "title": "contacts",
+            "items": {
+                "$ref": "#/$defs/contact"
+            },
+            "description": "联系方式列表"
+        },
+        "education": {
+            "type": "array",
+            "title": "education",
+            "items": {
+                "type": "object",
+                "title": "educationItem",
+                "properties": {
+                    "school": {
+                        "type": "string",
+                        "title": "school",
+                        "description": "学校名称"
+                    },
+                    "degree": {
+                        "type": "string",
+                        "title": "degree",
+                        "description": "学历"
+                    },
+                    "startYear": {
+                        "type": "integer",
+                        "title": "startYear",
+                        "description": "入学年份"
+                    },
+                    "endYear": {
+                        "type": "integer",
+                        "title": "endYear",
+                        "description": "毕业年份"
+                    }
+                }
+            },
+            "description": "教育经历"
+        },
+        "otherInfo": {
+            "type": "object",
+            "title": "otherInfo",
+            "description": "其他信息",
+            "properties": {
+                "interest": {
+                    "type": "array",
+                    "title": "interest",
+                    "items": {
+                        "type": "string",
+                        "title": "interest",
+                        "description": "兴趣爱好"
+                    },
+                    "description": "兴趣爱好列表"
+                }
+            }
+        }
+    },
+    "required": [
+        "name",
+        "age",
+        "gender"
+    ],
+    "additionalProperties": false
+}
